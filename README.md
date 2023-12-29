@@ -1,1 +1,1 @@
-# Alumni-Student-Networking-Platform
+# Student-Alumni Networking Platform
