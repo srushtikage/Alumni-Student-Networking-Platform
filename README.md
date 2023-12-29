@@ -1,5 +1,5 @@
 
-# Student - Alumni Networking Plateform
+# Student - Alumni Networking Platform
 
 Student-Alumni Networking Platform, a medium to bridge the gap between past, present, and future generations of our esteemed academic community. Our platform is designed to connect students and graduates, across various fields, fostering a vibrant ecosystem of knowledge sharing, mentorship, and collaboration.
 
