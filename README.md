@@ -1,7 +1,7 @@
 
 # Student - Alumni Networking Platform
 
-Student-Alumni Networking Platform, a medium to bridge the gap between past, present, and future generations of our esteemed academic community. Our platform is designed to connect students and graduates, across various fields, fostering a vibrant ecosystem of knowledge sharing, mentorship, and collaboration.
+Student-Alumni Networking Platform, a medium to bridge the gap between past, present, and future generations of our esteemed academic community. This platform is designed to connect students and graduates, across various fields, fostering a vibrant ecosystem of knowledge sharing, mentorship, and collaboration.
 
 This platform is not just a space for networking; it's a thriving community driven by the collective ambition to learn, grow, and succeed together.
 
