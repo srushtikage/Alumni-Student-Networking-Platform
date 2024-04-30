@@ -181,13 +181,78 @@ class Graph<T> {
 //We use Hashmap to store the edges in the graph
 
 	private Map<T, List<T>> map = new HashMap<>();
+	private Map<T, List<T>> map1 = new HashMap<>();
 
 //This function adds a new vertex to the graph
 
 	public void addVertex(T s) {
 
+		map1.put(s, new LinkedList<T>());
+
+	}
+
+	public void addVertex1(T s) {
+
 		map.put(s, new LinkedList<T>());
 
+	}
+
+	String rejected_ids = "";
+
+	public int send_notification(T student_id, T alumni_id) {
+
+		if (!map1.containsKey(student_id)) {
+			addVertex(student_id);
+		}
+		if (!map1.containsKey(alumni_id)) {
+			addVertex(alumni_id);
+		}
+
+		List<T> studentList = map1.get(alumni_id);
+
+		if (studentList == null) {
+			studentList = new ArrayList<>();
+			map1.put(alumni_id, studentList);
+		}
+
+		for (T w : studentList) {
+			if (w.equals(student_id)) {
+				System.out.println("\n\nPending request!!");
+				return 1;
+			}
+		}
+
+		String[] split_rejected_ids = rejected_ids.split(" ");
+		for (String rejectedIdstr : split_rejected_ids) {
+
+			if (rejectedIdstr.equals(student_id)) {
+				System.out.println("\n\nPending request!!");
+				return 1;
+			}
+
+		}
+
+		studentList.add(student_id);
+
+		return 0;
+
+	}
+
+	public String show_notification(T alumni_id) {
+		String ids = "";
+
+		if (map1.containsKey(alumni_id)) {
+			List<T> studentList = map1.get(alumni_id);
+			if (studentList != null && !studentList.isEmpty()) {
+				for (T studentId : studentList) {
+					ids += studentId.toString() + " ";
+				}
+			}
+		}
+
+		ids = ids.trim();
+
+		return ids;
 	}
 
 //This function adds the edge between source to destination
@@ -196,11 +261,11 @@ class Graph<T> {
 
 		if (!map.containsKey(source))
 
-			addVertex(source);
+			addVertex1(source);
 
 		if (!map.containsKey(destination))
 
-			addVertex(destination);
+			addVertex1(destination);
 
 		for (T w : map.get(source)) {
 
@@ -220,24 +285,170 @@ class Graph<T> {
 
 		map.get(destination).add(source);
 
+	}
+
+	public void reject_request(String ids, T alumni_id) {
+
+		if (ids.contains(",")) {
+
+			String[] split_connect_ids = ids.split(",");
+
+			for (String studentIdstr : split_connect_ids) {
+				studentIdstr = studentIdstr.trim();
+
+				if (!studentIdstr.isEmpty() && studentIdstr.matches("\\d+")) {
+					Integer studentId = Integer.parseInt(studentIdstr);
+
+					if (map1.containsKey(alumni_id)) {
+						List<T> studentList = map1.get(alumni_id);
+						studentList.remove((T) studentId);
+					}
+
+					rejected_ids += studentIdstr + " ";
+					System.out.println("Student ID " + studentId + " rejected");
+				}
+
+				else {
+					System.out.println("\n\nInvalid Unique ID");
+				}
+			}
+		}
+
+		else {
+
+			ids = ids.trim();
+
+			if (!ids.isEmpty() && ids.matches("\\d+")) {
+
+				Integer studentId = Integer.parseInt(ids);
+
+				if (map1.containsKey(alumni_id)) {
+					List<T> studentList = map1.get(alumni_id);
+					studentList.remove((T) studentId);
+				}
+
+				rejected_ids += ids + " ";
+				System.out.println("Student ID " + studentId + " rejected");
+			}
+
+			else {
+				System.out.println("\n\nInvalid Unique ID");
+			}
+		}
+	}
+
+	public void accept_request(String ids, T alumni_id) {
+
+		if (ids.contains(",")) {
+
+			String[] split_connect_ids = ids.split(",");
+
+			for (String studentIdstr : split_connect_ids) {
+
+				studentIdstr = studentIdstr.trim();
+
+				if (!studentIdstr.isEmpty() && studentIdstr.matches("\\d+")) {
+
+					int studentId = Integer.parseInt(studentIdstr);
+					T studentIdT = (T) Integer.valueOf(studentId);
+					addEdge(alumni_id, studentIdT);
+
+				} else {
+
+					System.out.println("Invalid ID: " + studentIdstr);
+
+				}
+
+			}
+
+		} else {
+
+			ids = ids.trim();
+
+			if (!ids.isEmpty() && ids.matches("\\d+")) {
+
+				int studentId = Integer.parseInt(ids);
+				T studentIdT = (T) Integer.valueOf(studentId);
+				addEdge(alumni_id, studentIdT);
+
+			} else {
+
+				System.out.println("Invalid ID: " + ids);
+
+			}
+
+		}
+
+		if (ids.contains(",")) {
+
+			String[] split_connect_ids = ids.split(",");
+
+			for (String studentIdstr : split_connect_ids) {
+
+				studentIdstr = studentIdstr.trim();
+
+				if (!studentIdstr.isEmpty() && studentIdstr.matches("\\d+")) {
+
+					Integer studentId = Integer.parseInt(studentIdstr);
+
+					if (map1.containsKey(alumni_id)) {
+						List<T> studentList = map1.get(alumni_id);
+						studentList.remove((T) studentId);
+					}
+
+					rejected_ids += studentIdstr + " ";
+					System.out.println("Student ID " + studentId + " accepted");
+				}
+
+				else {
+					System.out.println("\n\nInvalid Unique ID");
+				}
+			}
+		} else {
+
+			ids = ids.trim();
+
+			if (!ids.isEmpty() && ids.matches("\\d+")) {
+				Integer studentId = Integer.parseInt(ids);
+
+				if (map1.containsKey(alumni_id)) {
+					List<T> studentList = map1.get(alumni_id);
+					studentList.remove((T) studentId);
+				}
+
+				rejected_ids += ids + " ";
+				System.out.println("Student ID " + studentId + " accepted");
+			}
+
+			else {
+				System.out.println("\n\nInvalid Unique ID");
+			}
+		}
+
 		System.out.println("\n\nCONNECTION ESTABLISHED SUCCESSFULLY!!");
 
 	}
 
-	// Prints the adjancency list of each vertex.
+// Prints the adjancency list of each vertex.
 
 	public String display(T id) {
 
 		String str = "";
 
-		if (map.containsKey(id)) {
+		try {
+			if (map.containsKey(id)) {
 
-			for (T w : map.get(id)) {
+				for (T w : map.get(id)) {
 
-				str += (w.toString() + " ");
+					str += (w.toString() + " ");
+
+				}
 
 			}
+		}
 
+		catch (Exception e) {
+			return str;
 		}
 
 		return str;
@@ -264,7 +475,7 @@ public class Main {
 
 		System.out.println("\n\n\t\t\t\t\t\t\t -----------------------------------------------------\t\t\t\t");
 
-		System.out.println("\t\t\t\t\t\t\t                 ALUMNI TRACKING SYSTEM      \t\t\t\t");
+		System.out.println("\t\t\t\t\t\t\t            STUDENT ALUMNI NETWORKING PLATFORM      \t\t\t\t");
 
 		System.out.println("\t\t\t\t\t\t\t -----------------------------------------------------\t\t\t\t");
 
@@ -391,7 +602,9 @@ public class Main {
 
 								}
 
-								g.addEdge(student_id, alumni_id);
+								if (g.send_notification(student_id, alumni_id) == 0) {
+									System.out.println("\nRequest Sent!!");
+								}
 
 								String op;
 
@@ -410,7 +623,9 @@ public class Main {
 
 									if (alumni_id != 0) {
 
-										g.addEdge(student_id, alumni_id);
+										if (g.send_notification(student_id, alumni_id) == 0) {
+											System.out.println("\nRequest Sent!!");
+										}
 
 									}
 
@@ -544,7 +759,7 @@ public class Main {
 
 							System.out.println(
 
-									"\n\n1) UPDATE YOUR PROFILE\n2) VIEW PROFILE\n3) SEE YOUR CONNECTIONS\n4) MESSAGES\n5) LOG OUT ");
+									"\n\n1) UPDATE YOUR PROFILE\n2) VIEW PROFILE\n3) SEE YOUR CONNECTIONS\n4) MESSAGES\n5) NOTIFICATIONS \n6) LOG OUT ");
 
 							int ch1;
 
@@ -570,7 +785,7 @@ public class Main {
 
 							}
 
-							if (ch1 == 5) {
+							if (ch1 == 6) {
 
 								break;
 
@@ -695,21 +910,123 @@ public class Main {
 
 								break;
 
-							default:
+							case 5:
 
-								System.out.println("\n\nEnter a Valid Option!");
+								String ids;
+
+								ids = g.show_notification(alumni_id);
+
+								if (ids.equals("")) {
+									System.out.println("\n\nNO NOTIFICATIONS!!");
+									break;
+								}
+
+								obj.student_name(ids);
+
+								int choice;
+
+								do {
+									System.out.println(
+											"\nDo you want to....\n\n1. ACCEPT REQUEST\n2. REJECT REQUEST\n3. EXIT");
+									System.out.print("\nEnter your choice : ");
+									choice = sc.nextInt();
+									switch (choice) {
+									case 1:
+										String connect_ids = "";
+
+										System.out.print("\nEnter Unique IDs you want to connect with:");
+
+										sc.nextLine();
+
+										connect_ids = sc.nextLine().trim(); // Trim the input string
+
+										String notification_id = g.show_notification(alumni_id);
+
+										String[] accepted_ids_array = connect_ids.split(",");
+
+										boolean allacceptedIDsFound = true;
+
+										for (String rejected_id : accepted_ids_array) {
+
+											if (!notification_id.contains(rejected_id)) {
+
+												allacceptedIDsFound = false;
+												break;
+											}
+										}
+
+										if (allacceptedIDsFound) {
+											g.accept_request(connect_ids, alumni_id);
+										}
+
+										else {
+											System.out.print("\nReEnter Unique IDs you want to Reject :");
+											connect_ids = sc.nextLine().trim();
+
+											g.accept_request(connect_ids, alumni_id);
+
+										}
+
+										break;
+
+									case 2:
+
+										String reject_ids = "";
+
+										System.out.print("\nEnter Unique IDs you want to Reject :");
+										sc.nextLine();
+										reject_ids = sc.nextLine().trim();
+
+										String notification_ids = g.show_notification(alumni_id);
+
+										String[] rejected_ids_array = reject_ids.split(",");
+
+										boolean allRejectedIDsFound = true;
+
+										for (String rejected_id : rejected_ids_array) {
+
+											if (!notification_ids.contains(rejected_id)) {
+
+												allRejectedIDsFound = false;
+												break;
+											}
+										}
+
+										if (allRejectedIDsFound) {
+
+											g.reject_request(reject_ids, alumni_id);
+										}
+
+										else {
+
+											System.out.print("\nReEnter Unique IDs you want to Reject :");
+
+											reject_ids = sc.nextLine().trim();
+
+											g.reject_request(reject_ids, alumni_id);
+
+										}
+
+										break;
+
+									default:
+
+										System.out.println("\n\nEnter a Valid Option!!");
+
+									}
+
+								} while (choice != 3);
 
 							}
 
 						}
 
 					}
-
 				}
 
 				else {
 
-					System.out.println("\nEnter a Valid Option!!");
+					System.out.println("\n\nEnter a Valid Option!!");
 
 				}
 
