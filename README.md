@@ -39,17 +39,20 @@ To install this project, follow these steps:
 2. See Your Connections
 3. Send Messages to Your Connections
 4. Update Your Profile
-5. Log Out
+5. View Profile
+6. Log Out
 ## Alumni Dashboard
 1. Update Your Profile.
-2. See Your Connections.
-3. Send Messages to Your Connections.
-4. Log Out.
+2. View Profile
+3. See Your Connections.
+4. Send Messages to Your Connections.
+5. Notifications
+6. Log Out.
 ## Data Structures Implemented
-I have thoughtfully selected data structures based on their dynamic nature, suitability, and time complexity:
+We have thoughtfully selected data structures based on their dynamic nature, suitability, and time complexity:
 
 1. Linked List: Used for dynamically storing student and alumni data, facilitating the creation of accounts, and efficient data management.
 2. Graph: Graphs are employed to create and manage connections between students and alumni, similar to professional networking platforms, enabling messaging after connections are established.
-3. Hash Map: Hash maps are used to map identity numbers to lists of connections for each user. I preferred hash maps over arrays as the arrays are static in nature, and over arraylists as arraylist allows duplicate keys.
+3. Hash Map: Hash maps are used to map identity numbers to lists of connections for each user. We preferred hash maps over arrays as the arrays are static in nature, and over arraylists as arraylist allows duplicate keys.
 4. Arrays: Identity no of Connections of a user are stored in a String with spaces; then the String is split using the split() function into an Array of Strings which is then traversed to print details of connections.
 5. Exception handling has been implemented to enhance application robustness.
