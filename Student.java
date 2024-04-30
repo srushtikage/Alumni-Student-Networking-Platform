@@ -1,5 +1,6 @@
 package student;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import alumni.Alumni_Profile;
@@ -303,45 +304,6 @@ public class Student {
 
 		System.out.println("\n\n* This Application is Applicable Only for Cummins Students *");
 
-		System.out.print("\n\nFIRST NAME : ");
-
-		String fname = sc.next();
-
-		sc.nextLine();
-
-		boolean value = onlyAlphabets(fname);
-
-		while (!value) {
-
-			System.out.println("\n\nEnter Alphabets ONLY!!");
-
-			System.out.print("\nRe-Enter : ");
-
-			fname = sc.next();
-
-			value = onlyAlphabets(fname);
-
-		}
-
-		System.out.print("\nLAST NAME : ");
-
-		String lname = sc.next();
-
-		sc.nextLine();
-
-		value = onlyAlphabets(lname);
-
-		while (!value) {
-
-			System.out.println("\n\nEnter Alphabets ONLY!!");
-
-			System.out.print("\nRe-Enter : ");
-
-			lname = sc.next();
-
-			value = onlyAlphabets(lname);
-
-		}
 
 		System.out.print("\nEMAIL : ");
 
@@ -365,7 +327,7 @@ public class Student {
 
 		while (ptr != null) {
 
-			if (fname.equals(ptr.fname) && lname.equals(ptr.lname) && email.equals(ptr.email)
+			if (email.equals(ptr.email)
 
 					&& password.equals(ptr.password)) {
 
@@ -375,7 +337,7 @@ public class Student {
 
 			}
 
-			else if (fname.equals(ptr.fname) && lname.equals(ptr.lname) && email.equals(ptr.email)) {
+			else if (email.equals(ptr.email)) {
 
 				System.out.println("\nIncorrect Password!!");
 
@@ -689,6 +651,46 @@ public class Student {
 		return null;
 
 	}
+	
+	
+	public void student_name(String ids) {
+		
+		System.out.println(
+
+				"\n\n\n\n\n\t\t\t\t\t\t\t\t               NOTIFICATIONS                    \t\t\t\t");
+
+		System.out.println("\t\t\t\t\t\t\t\t     -----------------------------------\t\t\t\t\n\n");
+
+		Student_Node ptr = head;
+		
+		String[] studentIdArray = ids.split(" ");
+		
+		for (int i = 0; i < studentIdArray.length; i++) {
+
+			String studentIdstr = studentIdArray[i];
+
+			int studentId = Integer.parseInt(studentIdstr);
+
+			while (ptr != null) {
+
+				if (ptr.identity == studentId) {
+					
+					System.out.println();
+					System.out.println("Unique ID : " + studentId);
+					System.out.println(ptr.fname + " " + ptr.lname + " has sent you a request\n");
+					
+					break;
+				}
+
+				ptr = ptr.next;
+
+			}
+		}
+
+	}
+	
+	
+	
 //Method to Check If User Enters Only Among The Displayed Identity No
 
 	public int check(int id, String student_ids) {
@@ -714,6 +716,8 @@ public class Student {
 		return 0;
 
 	}
+	
+
 
 //Method To Check If The Password Is Valid
 
