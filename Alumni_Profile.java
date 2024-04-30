@@ -337,41 +337,6 @@ public class Alumni_Profile {
 
 		System.out.println("\n\n* This Application is Applicable Only for Cummins Students *");
 
-		System.out.print("\n\nFIRST NAME : ");
-
-		String fname = sc.next();
-
-		value = onlyAlphabets(fname);
-
-		while (!value) {
-
-			System.out.println("\n\nEnter Alphabets ONLY!!");
-
-			System.out.print("\nRe-Enter : ");
-
-			fname = sc.next();
-
-			value = onlyAlphabets(fname);
-
-		}
-
-		System.out.print("\nLAST NAME : ");
-
-		String lname = sc.next();
-
-		value = onlyAlphabets(lname);
-
-		while (!value) {
-
-			System.out.println("\n\nEnter Alphabets ONLY!!");
-
-			System.out.print("\nRe-Enter : ");
-
-			lname = sc.next();
-
-			value = onlyAlphabets(lname);
-
-		}
 
 		System.out.print("\nEMAIL : ");
 
@@ -393,7 +358,7 @@ public class Alumni_Profile {
 
 		while (ptr != null) {
 
-			if (fname.equals(ptr.fname) && lname.equals(ptr.lname) && email.equals(ptr.email)
+			if (email.equals(ptr.email)
 
 					&& password.equals(ptr.password)) {
 
@@ -403,7 +368,7 @@ public class Alumni_Profile {
 
 			}
 
-			else if (fname.equals(ptr.fname) && lname.equals(ptr.lname) && email.equals(ptr.email)) {
+			else if (email.equals(ptr.email)) {
 
 				System.out.println("\nIncorrect Password!!");
 
@@ -807,7 +772,7 @@ public class Alumni_Profile {
 
 				}
 
-				int f = 0;
+				//int f = 0;
 
 				if (check(id, str) == 1) {
 
@@ -826,7 +791,7 @@ public class Alumni_Profile {
 					}
 
 				}
-
+/*
 				if (f == 0) {
 
 					System.out.print("\n\nDo you Want to Connect? (YES/NO) : ");
@@ -857,7 +822,7 @@ public class Alumni_Profile {
 
 					}
 
-				}
+				}*/
 
 			}
 
